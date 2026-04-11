@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlyImob — Pitch Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #004aad;
+    --cyan: #5de0e6;
+    --bg: #000000;
+    --surface: #0a0a0a;
+    --surface2: #111111;
+    --border: rgba(93,224,230,0.12);
+    --text: #e8e8e8;
+    --muted: rgba(232,232,232,0.5);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* GRADIENT TEXT */
+  .grad {
+    background: linear-gradient(90deg, #004aad, #5de0e6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .grad-rev {
+    background: linear-gradient(90deg, #5de0e6, #004aad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* HORIZONTAL DECK */
+  #deck {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  #track {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    transition: transform .55s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* SLIDE LAYOUT */
+  .slide {
+    width: 100vw;
+    height: 100vh;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 8%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 80% 20%, rgba(0,74,173,0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(93,224,230,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .slide-number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .2em;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+  }
+
+  /* TYPOGRAPHY */
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.2rem;
+  }
+
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+  }
+
+  h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: .5rem;
+  }
+
+  p {
+    color: var(--text);
+    opacity: .82;
+    text-align: justify;
+    margin-bottom: 0.4rem;
+    max-width: 80ch;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  .lead {
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    opacity: .7;
+    font-weight: 300;
+    letter-spacing: .01em;
+  }
+
+  /* DIVIDER */
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #004aad, #5de0e6);
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  /* CARDS GRID */
+  .grid {
+    display: grid;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+  .cell {
+    background: var(--bg);
+    padding: 0.85rem 1.2rem;
+  }
+
+  .cell h3 { margin-bottom: .4rem; }
+  .cell p { font-size: 13.5px; opacity: .7; text-align: left; }
+
+  /* FEATURE BLOCK (mantido para ref, não usado no slide 5) */
+  .feature {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .feature:last-child { border-bottom: none; }
+
+  .feature-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+    min-width: 2.5rem;
+    background: linear-gradient(180deg, #004aad, #5de0e6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .feature-body h3 { margin-bottom: .4rem; }
+  .feature-body p { font-size: 13.5px; text-align: left; }
+
+  /* DIFERENCIAIS GRID (slide 5) */
+  .diff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 0.75rem;
+    flex: 1;
+  }
+
+  .diff-card {
+    background: var(--bg);
+    padding: 0.85rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .diff-card .diff-num {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    line-height: 1;
+    background: linear-gradient(180deg, #004aad, #5de0e6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.3rem;
+  }
+
+  .diff-card h3 { margin-bottom: 0.25rem; font-size: 0.83rem; }
+  .diff-card p  { font-size: 13px; opacity: .72; text-align: left; margin: 0; line-height: 1.55; }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.8rem;
+    font-size: 13.5px;
+  }
+
+  thead th {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    padding: 6px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody td {
+    padding: 7px 12px;
+    border-bottom: 1px solid rgba(93,224,230,0.06);
+    color: rgba(232,232,232,.8);
+    font-variant-numeric: tabular-nums;
+  }
+
+  tbody tr:hover td { background: rgba(93,224,230,0.03); }
+
+  .margin-cell {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+
+  /* PLAN CARDS */
+  .plan-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .plan {
+    border: 1px solid var(--border);
+    padding: 0.75rem 1.2rem;
+    position: relative;
+  }
+
+  .plan.featured {
+    border-color: rgba(93,224,230,0.4);
+  }
+
+  .plan-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: linear-gradient(90deg, #004aad, #5de0e6);
+    padding: 3px 10px;
+    display: inline-block;
+    margin-bottom: 0.35rem;
+  }
+
+  .plan-price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    line-height: 1;
+    margin: .2rem 0;
+  }
+
+  .plan-period {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .plan-items {
+    list-style: none;
+    font-size: 12px;
+    color: rgba(232,232,232,.7);
+  }
+
+  .plan-items li {
+    padding: 2px 0;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .plan-items li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #5de0e6;
+    font-size: 11px;
+  }
+
+  /* PHASE */
+  .phase-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 2rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .phase-row:last-child { border-bottom: none; }
+
+  .phase-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 4px;
+  }
+
+  .phase-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: .3rem;
+    background: linear-gradient(90deg, #5de0e6, #a0eef2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .phase-body { font-size: 13.5px; opacity: .72; text-align: justify; }
+
+  /* METRIC ROW */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  .metric {
+    background: var(--bg);
+    padding: 0.85rem 1rem;
+  }
+
+  .metric-val {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #004aad, #5de0e6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: .25rem;
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+  }
+
+  /* INFRA PHASES */
+  .infra-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+
+  .infra-cell {
+    background: var(--bg);
+    padding: 0.9rem 1.2rem;
+  }
+
+  .infra-phase {
+    font-size: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: .4rem;
+  }
+
+  .infra-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    margin-bottom: .3rem;
+  }
+
+  .infra-cost {
+    font-family: 'Montserrat', sans-serif;
+    font-size: .85rem;
+    font-weight: 700;
+    color: var(--cyan);
+    margin-bottom: 0.4rem;
+  }
+
+  .infra-cell p { font-size: 13px; opacity: .65; text-align: left; }
+
+  /* PROJECTION TABLE */
+  .proj-highlight td {
+    color: #fff !important;
+    font-weight: 600;
+  }
+
+  /* CTA SLIDE */
+  .cta-slide {
+    width: 100vw;
+    height: 100vh;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 8%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0,74,173,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-slide h1 { text-align: center; }
+  .cta-slide p { text-align: center; margin: 0 auto; }
+
+  .cta-btn {
+    display: inline-block;
+    margin-top: 2.5rem;
+    padding: 14px 40px;
+    border: 1px solid rgba(93,224,230,0.5);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    text-decoration: none;
+    transition: background .2s;
+  }
+
+  .cta-btn:hover { background: rgba(93,224,230,0.08); }
+
+  /* COVER */
+  .cover {
+    width: 100vw;
+    height: 100vh;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 8%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 70% 40%, rgba(0,74,173,0.18) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 40% at 10% 90%, rgba(93,224,230,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cover-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 2rem;
+  }
+
+  .cover-sub {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: rgba(232,232,232,.55);
+    font-weight: 300;
+    max-width: 55ch;
+    line-height: 1.6;
+    margin-top: 1.5rem;
+  }
+
+  .cover-builder {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 60ch;
+    line-height: 1.6;
+  }
+
+  /* QUOTE BLOCK */
+  .quote {
+    border-left: 2px solid;
+    border-image: linear-gradient(180deg, #004aad, #5de0e6) 1;
+    padding: 0.75rem 1.25rem;
+    margin: 0.5rem 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(.95rem, 1.5vw, 1.15rem);
+    font-weight: 600;
+    color: rgba(232,232,232,.9);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* NAV DOTS */
+  .nav {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    z-index: 100;
+  }
+
+  .nav a {
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(93,224,230,0.3);
+    transition: all .2s;
+    cursor: pointer;
+  }
+
+  .nav a:hover, .nav a.active {
+    background: var(--cyan);
+    transform: scale(1.6);
+  }
+
+  /* NAV ARROWS */
+  .nav-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(93,224,230,0.06);
+    border: 1px solid rgba(93,224,230,0.18);
+    color: var(--cyan);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 200;
+    transition: background .2s, opacity .3s;
+    font-size: 18px;
+    outline: none;
+  }
+
+  .nav-arrow:hover { background: rgba(93,224,230,0.15); }
+  .nav-arrow.hidden { opacity: 0; pointer-events: none; }
+
+  #btn-prev { left: 14px; }
+  #btn-next { right: 14px; }
+
+  /* SEPARATOR LINE */
+  .sep {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(93,224,230,0.3), transparent);
+    margin: 0.6rem 0;
+  }
+
+  /* TAGS */
+  .tag {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border: 1px solid rgba(93,224,230,0.35);
+    color: var(--cyan);
+    margin-bottom: 1rem;
+  }
+
+  /* SOON BADGE */
+  .soon {
+    font-size: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #004aad;
+    background: rgba(0,74,173,0.15);
+    border: 1px solid rgba(0,74,173,0.3);
+    padding: 2px 8px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* COST BREAKDOWN */
+  .cost-list {
+    list-style: none;
+    margin-top: 0.6rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .cost-item {
+    background: var(--bg);
+    padding: 0.5rem 0.9rem;
+    font-size: 13px;
+    color: rgba(232,232,232,.7);
+  }
+
+  .cost-item strong {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: .2rem;
+  }
+
+  /* SEEKER WANTS */
+  .want-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .want {
+    border: 1px solid var(--border);
+    padding: 0.85rem 1rem;
+  }
+
+  .want h3 { margin-bottom: .4rem; }
+  .want p { font-size: 13.5px; text-align: left; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav"></nav>
+
+<!-- ARROWS -->
+<button class="nav-arrow" id="btn-prev" aria-label="Anterior">&#8592;</button>
+<button class="nav-arrow" id="btn-next" aria-label="Próximo">&#8594;</button>
+
+<!-- DECK -->
+<div id="deck">
+<div id="track">
+
+<!-- SLIDE 1 — CAPA -->
+<section class="cover" id="s1">
+  <div class="cover-eyebrow">Pitch Deck · Venture Builder · 2026</div>
+  <h1 class="grad">FlyImob</h1>
+  <p class="cover-sub">O ecossistema inteligente para corretores e imobiliárias de alta performance.</p>
+  <div class="cover-builder">
+    Desenvolvido pela <strong style="color:rgba(232,232,232,.9)">Fly Tech</strong> — empresa especializada em desenvolvimento de software, solução de problemas e negócios — em parceria com um corretor de imóveis com operação ativa no mercado.
+  </div>
+</section>
+
+<!-- SLIDE 2 — O PROBLEMA -->
+<section class="slide" id="s2">
+  <div class="slide-number">02 — O Problema</div>
+  <h2>O corretor de alto nível trabalha com <span class="grad">8 sistemas diferentes</span>. E ainda assim, opera no escuro.</h2>
+  <div class="divider"></div>
+  <p>Para ter tudo que precisa hoje, um corretor assina separadamente: um CRM, um portal de imóveis, uma ferramenta de site, uma plataforma de busca de proprietários, um sistema de análise de risco, uma solução de WhatsApp, uma fonte de dados de mercado e algum curso ou treinamento. São produtos que não conversam entre si, com interfaces diferentes, cobranças diferentes e zero inteligência cruzada.</p>
+  <p>O resultado: tempo perdido, dados fragmentados, oportunidades que somem entre uma aba e outra, e um corretor que passa mais tempo operando ferramentas do que fechando negócio.</p>
+  <div class="quote">O mercado imobiliário brasileiro movimenta trilhões de reais por ano. E ainda é gerido por planilha, feeling e improviso.</div>
+</section>
+
+<!-- SLIDE 3 — O MERCADO -->
+<section class="slide" id="s3">
+  <div class="slide-number">03 — O Mercado</div>
+  <h2>Um mercado enorme, pouco tecnologizado e <span class="grad">em aceleração</span>.</h2>
+  <div class="divider"></div>
+  <div class="metric-row">
+    <div class="metric">
+      <div class="metric-val">700k</div>
+      <div class="metric-label">Corretores ativos no Brasil</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val">74k</div>
+      <div class="metric-label">Imobiliárias registradas</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val">190k</div>
+      <div class="metric-label">Corretores ativos em SP</div>
+    </div>
+    <div class="metric">
+      <div class="metric-val">+20%</div>
+      <div class="metric-label">Crescimento proptech/ano</div>
+    </div>
+  </div>
+  <p style="margin-top:0.8rem">O Brasil concentra o maior mercado imobiliário da América Latina. São Paulo tem 190 mil corretores ativos e 28 mil imobiliárias registradas, segundo o COFECI (2026). A adoção de tecnologia especializada no setor ainda é marginal — e nenhum player entregou um ecossistema completo e integrado para o corretor de alta performance.</p>
+  <div class="quote">Essa janela não fica aberta para sempre.</div>
+</section>
+
+<!-- SLIDE 4 — A SOLUÇÃO -->
+<section class="slide" id="s4">
+  <div class="slide-number">04 — A Solução</div>
+  <h2>A FlyImob não é mais um sistema. É o único que <span class="grad">substitui todos os outros</span>.</h2>
+  <div class="divider"></div>
+  <p>Um ecossistema integrado onde inteligência de mercado, CRM, WhatsApp com IA, site próprio, busca de proprietários, análise de risco, carteira de imóveis, academia de formação e ecossistema de parceiros funcionam como uma coisa só — alimentando uns aos outros, automaticamente, dentro de uma única plataforma.</p>
+  <div class="grid grid-2" style="margin-top:1rem">
+    <div class="cell">
+      <h3>Para o corretor</h3>
+      <p>Uma central inteligente que transforma dados de mercado em clareza, foco e fechamento.</p>
+    </div>
+    <div class="cell">
+      <h3>Para a imobiliária</h3>
+      <p>Torre de controle total da operação — leads, equipe, VGV, pipeline e performance em tempo real.</p>
+    </div>
+  </div>
+  <div class="quote" style="margin-top:1rem">Não é um CRM. Não é um portal. É uma central de inteligência comercial.</div>
+</section>
+
+<!-- SLIDE 5 — DIFERENCIAIS -->
+<section class="slide" id="s5">
+  <div class="slide-number">05 — Diferenciais Reais</div>
+  <h2>O que <span class="grad">nenhum concorrente</span> entrega hoje.</h2>
+  <div class="divider"></div>
+
+  <div class="diff-grid">
+    <div class="diff-card">
+      <div class="diff-num">01</div>
+      <h3>WhatsApp + CRM com análise automática de conversa</h3>
+      <p>A FlyImob lê o histórico do cliente no WhatsApp, cruza com o perfil de busca e recomenda automaticamente imóveis da própria carteira, de outras imobiliárias e de captação ativa — sem o corretor fazer nada manualmente. Inédito no mercado.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-num">02</div>
+      <h3>Busca de proprietários — Brasil inteiro</h3>
+      <p>A concorrência mais próxima limita o acesso a uma cidade por usuário. Na FlyImob, qualquer endereço do país está disponível, com conformidade total com a LGPD. O corretor para de esperar o imóvel aparecer — ele vai buscar o dono.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-num">03</div>
+      <h3>Termômetro Imob</h3>
+      <p>Não existe em nenhum sistema do mercado. O corretor enxerga em tempo real quais regiões estão mais quentes, qual faixa de valor está sendo mais buscada e qual perfil de imóvel tem maior liquidez — sem correr atrás de dado nenhum.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-num">04</div>
+      <h3>Site profissional sem código, dentro do ecossistema</h3>
+      <p>Domínio próprio, atualização automática integrada ao CRM. Sem agência, sem desenvolvedor, sem custo adicional de hospedagem. Outros sistemas cobram mensalidade alta só pelo site. Na FlyImob, está incluído.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-num">05</div>
+      <h3>Fly Academia integrada ao ecossistema</h3>
+      <p>Treinamentos práticos de captação, atendimento, negociação e fechamento dentro da mesma plataforma onde o corretor opera. Não é um produto separado.</p>
+    </div>
+    <div class="diff-card">
+      <div class="diff-num">06</div>
+      <h3>Análise de risco do cliente <span class="soon">Em breve · Plano Elite</span></h3>
+      <p>Protestos, restrições e processos judiciais diretamente no CRM, sem sair da plataforma. Menos negociações longas com clientes inviáveis. Mais fechamentos com quem tem real capacidade de compra.</p>
+    </div>
+  </div>
+
+  <p style="margin-top:0.5rem; font-style:italic; opacity:.55; font-size:13px">Essas funcionalidades, contratadas separadamente no mercado, custariam mais do que a mensalidade inteira da FlyImob.</p>
+</section>
+
+<!-- SLIDE 6 — VISÃO DO CORRETOR -->
+<section class="slide" id="s6">
+  <div class="slide-number">06 — Produto: Visão do Corretor</div>
+  <h2>Tudo que um corretor de alta performance precisa, <span class="grad">em um lugar só</span>.</h2>
+  <div class="divider"></div>
+  <div class="grid grid-3" style="margin-top:0.8rem">
+    <div class="cell">
+      <h3>Dashboard estratégico</h3>
+      <p>Pipeline, metas, ticket médio e leads captados em tempo real.</p>
+    </div>
+    <div class="cell">
+      <h3>Inteligência de mercado</h3>
+      <p>Regiões mais buscadas, poder de compra predominante e Termômetro Imob.</p>
+    </div>
+    <div class="cell">
+      <h3>CRM + Match automático</h3>
+      <p>Lead → imóvel ideal em segundos. Histórico completo de interações.</p>
+    </div>
+    <div class="cell">
+      <h3>Carteira de 20 mil imóveis</h3>
+      <p>Prontos para negociação, com integração de XML próprio.</p>
+    </div>
+    <div class="cell">
+      <h3>IA no WhatsApp</h3>
+      <p>Assistente respondendo com o imóvel certo no momento exato da intenção do cliente.</p>
+    </div>
+    <div class="cell">
+      <h3>Site + Busca + Academia</h3>
+      <p>Presença digital, captação ativa por CEP e treinamentos — tudo integrado.</p>
+    </div>
+  </div>
+  <div class="quote" style="margin-top:1rem">Menos esforço operacional. Mais estratégia, foco e conversão.</div>
+</section>
+
+<!-- SLIDE 7 — VISÃO DA IMOBILIÁRIA -->
+<section class="slide" id="s7">
+  <div class="slide-number">07 — Produto: Visão da Imobiliária</div>
+  <h2>O gerente não interfere na atuação. <span class="grad">Ele enxerga o todo.</span></h2>
+  <div class="divider"></div>
+  <p>Todos os corretores habilitados operam normalmente — atendem leads, conduzem negociações, usam todos os recursos. A visão total da operação pertence exclusivamente ao gerente.</p>
+  <div class="grid grid-2" style="margin-top:0.8rem">
+    <div class="cell">
+      <h3>Visão executiva centralizada</h3>
+      <p>Volume total de leads, distribuição por corretor, andamento das negociações, pipeline financeiro consolidado e vendas convertidas. Nada fica invisível.</p>
+    </div>
+    <div class="cell">
+      <h3>Projeção de VGV em tempo real</h3>
+      <p>Análise contínua do Valor Geral de Vendas, ticket médio por período e indicadores de eficiência comercial, 24 horas por dia.</p>
+    </div>
+    <div class="cell">
+      <h3>Ranking e meritocracia</h3>
+      <p>Performance individual e coletiva baseada em resultado real. Top corretores por volume convertido, destaques por período.</p>
+    </div>
+    <div class="cell">
+      <h3>Governança e segurança</h3>
+      <p>Rastreabilidade completa da jornada do lead. Controle integral dos canais de entrada 24 horas. Previsibilidade financeira com estrutura para crescimento sustentável.</p>
+    </div>
+  </div>
+  <div class="quote" style="margin-top:1rem">O corretor opera. O gerente enxerga. A imobiliária cresce com estrutura, não no improviso.</div>
+</section>
+
+<!-- SLIDE 8 — FOSSO COMPETITIVO -->
+<section class="slide" id="s8">
+  <div class="slide-number">08 — Fosso Competitivo</div>
+  <h2>Por que isso <span class="grad">não se copia em seis meses</span>.</h2>
+  <div class="divider"></div>
+  <p>Grandes players do setor — portais, CRMs, ferramentas isoladas — têm recursos, mas não têm integração. Construir um ecossistema não é empilhar funcionalidades: é fazer com que cada camada alimente as outras de forma inteligente e automática. Isso leva tempo, leva domínio do problema e leva a visão de quem vive a operação por dentro.</p>
+  <p>A FlyImob foi construída de dentro para fora — por um time de tecnologia com histórico real em software de negócio, em parceria com um corretor com operação ativa no mercado. Não é uma solução genérica adaptada para o setor imobiliário. É um ecossistema construído especificamente para os desafios reais do corretor brasileiro.</p>
+  <div class="grid grid-3" style="margin-top:1rem">
+    <div class="cell">
+      <h3>Distribuição embutida no produto</h3>
+      <p>Cada site de corretor publicado pelo ecossistema é uma vitrine orgânica da FlyImob. Cada imobiliária que adota o sistema traz consigo toda a equipe.</p>
+    </div>
+    <div class="cell">
+      <h3>Dependência operacional real</h3>
+      <p>Quando o corretor passa a operar com a FlyImob, trocar de ferramenta não é uma decisão de preço — é uma decisão de risco operacional.</p>
+    </div>
+    <div class="cell">
+      <h3>Dados proprietários</h3>
+      <p>Cada interação, lead e negociação dentro do ecossistema gera inteligência de mercado que só a FlyImob possui. O fosso cresce conforme a base escala.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9 — MODELO DE NEGÓCIO -->
+<section class="slide" id="s9">
+  <div class="slide-number">09 — Modelo de Negócio</div>
+  <h2>Simples. Recorrente. Com margem que <span class="grad">cresce conforme a base escala</span>.</h2>
+  <div class="divider"></div>
+  <div class="plan-grid">
+    <div class="plan">
+      <div class="plan-tag">Plano Base</div>
+      <div class="plan-price grad">R$500</div>
+      <div class="plan-period">por corretor / mês</div>
+      <ul class="plan-items">
+        <li>Dashboard e CRM completo</li>
+        <li>IA integrada ao WhatsApp</li>
+        <li>Site próprio sem código</li>
+        <li>Carteira de 20 mil imóveis + XML</li>
+        <li>Termômetro Imob</li>
+        <li>Busca de proprietários — Brasil inteiro</li>
+        <li>Fly Academia integrada</li>
+        <li>Ecossistema de parceiros</li>
+      </ul>
+    </div>
+    <div class="plan featured">
+      <div class="plan-tag">Plano Elite</div>
+      <div class="plan-price grad">R$549</div>
+      <div class="plan-period">por corretor / mês</div>
+      <ul class="plan-items">
+        <li>Tudo do Plano Base</li>
+        <li>Análise de risco do cliente <span class="soon">Em breve</span></li>
+        <li>10 consultas mensais incluídas</li>
+        <li>Consultas adicionais a R$1,00 cada</li>
+        <li>Protestos, restrições e processos judiciais</li>
+        <li>Diretamente no CRM, sem sair da plataforma</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sep"></div>
+  <div class="grid grid-3">
+    <div class="cell">
+      <h3>Sem fricção</h3>
+      <p>Pague e use. Sem contrato. Sem setup. Cancele quando quiser.</p>
+    </div>
+    <div class="cell">
+      <h3>Expansão orgânica</h3>
+      <p>Uma imobiliária assina e cada corretor da equipe precisa do plano. Um contrato vira dez assinantes.</p>
+    </div>
+    <div class="cell">
+      <h3>LTV de R$12.000</h3>
+      <p>Em 24 meses de retenção média. Com churn baixo sustentado pela dependência operacional do ecossistema.</p>
+    </div>
+  </div>
+  <p style="margin-top:0.6rem; font-size:13.5px; opacity:.6">CAC na fase 1 próximo de zero — aquisição por prospecção direta e network. Quando tráfego pago entrar, CAC estimado abaixo de R$150, sustentando LTV/CAC acima de 80x em 24 meses.</p>
+</section>
+
+<!-- SLIDE 10 — ESTRUTURA DE CUSTOS -->
+<section class="slide" id="s10">
+  <div class="slide-number">10 — Estrutura de Custos Real</div>
+  <h2>Transparência total. <span class="grad">Margens que falam por si.</span></h2>
+  <div class="divider"></div>
+  <p>Calculado com base em custos reais: Gemini 2.5 Flash, Vercel/infraestrutura própria, Supabase, WhatsApp API e APIs de dados.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Clientes</th>
+        <th>MRR</th>
+        <th>Custo Operacional</th>
+        <th>Margem Bruta</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>5</td><td>R$2.500</td><td>R$1.242</td><td class="margin-cell">50%</td></tr>
+      <tr><td>50</td><td>R$25.000</td><td>R$1.647</td><td class="margin-cell">93%</td></tr>
+      <tr><td>100</td><td>R$50.000</td><td>R$2.087</td><td class="margin-cell">96%</td></tr>
+      <tr><td>300</td><td>R$150.000</td><td>R$3.936</td><td class="margin-cell">97%</td></tr>
+      <tr class="proj-highlight"><td>1.000</td><td>R$500.000</td><td>R$12.378</td><td class="margin-cell">97,5%</td></tr>
+      <tr class="proj-highlight"><td>2.000</td><td>R$1.000.000</td><td>R$23.738</td><td class="margin-cell">97,6%</td></tr>
+    </tbody>
+  </table>
+  <ul class="cost-list">
+    <li class="cost-item"><strong>IA — Gemini 2.5 Flash</strong>~R$0,60/cliente/mês. Escala de R$3 a R$1.200 total.</li>
+    <li class="cost-item"><strong>WhatsApp API</strong>R$138 até 100 clientes · R$198 até 500 · enterprise acima.</li>
+    <li class="cost-item"><strong>API Proprietários por CEP</strong>R$999 fixo, consultas ilimitadas.</li>
+    <li class="cost-item"><strong>Análise de Risco</strong>R$0,80/consulta. Isolada no Plano Elite — não impacta margem base.</li>
+    <li class="cost-item"><strong>Supabase</strong>Gratuito até ~300 clientes. R$39/mês no Pro acima disso.</li>
+    <li class="cost-item"><strong>Infraestrutura</strong>Vercel Pro na fase inicial. Migração planejada conforme escala.</li>
+  </ul>
+  <p style="margin-top:0.5rem; font-size:13px; opacity:.55">A margem de 50% nos primeiros 5 clientes é pressionada pelo custo fixo da API de CEP — que se dilui rapidamente. A partir de 50 clientes, a margem já está em 93% e só cresce.</p>
+</section>
+
+<!-- SLIDE 11 — INFRAESTRUTURA -->
+<section class="slide" id="s11">
+  <div class="slide-number">11 — Estratégia de Infraestrutura</div>
+  <h2>Começamos rápidos. <span class="grad">Migramos quando faz sentido financeiro.</span></h2>
+  <div class="divider"></div>
+  <div class="infra-grid">
+    <div class="infra-cell">
+      <div class="infra-phase">Fase 1 · até 300 clientes</div>
+      <div class="infra-title grad">Vercel Pro</div>
+      <div class="infra-cost">R$62–120 / mês</div>
+      <p>Deployment ágil, zero overhead operacional, 1TB de bandwidth incluído, projetos ilimitados. Foco total em produto e aquisição, não em DevOps.</p>
+    </div>
+    <div class="infra-cell">
+      <div class="infra-phase">Fase 2 · 300–800 clientes</div>
+      <div class="infra-title grad">Vercel + Cloudflare CDN</div>
+      <div class="infra-cost">R$120–200 / mês</div>
+      <p>Sites dos corretores servidos pelo Cloudflare como camada de cache. Reduz o bandwidth da Vercel em 70–80%, eliminando praticamente todo risco de overage. CDN estático: gratuito.</p>
+    </div>
+    <div class="infra-cell">
+      <div class="infra-phase">Fase 3 · acima de 800 clientes</div>
+      <div class="infra-title grad">Infraestrutura própria</div>
+      <div class="infra-cost">R$800–1.500 / mês até 2k clientes</div>
+      <p>VPS dedicado em AWS, DigitalOcean ou Hetzner via Docker + Nginx. Bandwidth cai de US$0,15/GB para US$0,01–0,02/GB. Overhead de DevOps resolvido com contratação técnica nessa fase.</p>
+    </div>
+  </div>
+  <p style="margin-top:0.8rem; font-size:13.5px; opacity:.6">Por que não começar com infraestrutura própria? Porque nos primeiros meses o recurso mais escasso não é dinheiro — é o tempo dos fundadores. A migração está planejada antes de virar problema, não depois.</p>
+</section>
+
+<!-- SLIDE 12 — PROJEÇÃO E ROI -->
+<section class="slide" id="s12">
+  <div class="slide-number">12 — Projeção e ROI</div>
+  <h2>O que esse negócio vale quando escala — e por que os fundamentos <span class="grad">sustentam esse crescimento</span>.</h2>
+  <div class="divider"></div>
+  <p>O produto já existe. O investimento não é para construir — é para acelerar.</p>
+  <table style="margin-top:0.6rem">
+    <thead>
+      <tr>
+        <th>Marco</th>
+        <th>Clientes</th>
+        <th>MRR</th>
+        <th>ARR</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Meses 1–2</td><td>100</td><td>R$50k</td><td>R$600k</td><td style="color:#5de0e6;font-size:12px">Validação com números reais</td></tr>
+      <tr><td>Mês 6</td><td>300</td><td>R$150k</td><td>R$1,8M</td><td style="color:#5de0e6;font-size:12px">Operação autossustentável</td></tr>
+      <tr><td>Mês 12</td><td>600</td><td>R$300k</td><td>R$3,6M</td><td style="color:#5de0e6;font-size:12px">Consolidado em São Paulo</td></tr>
+      <tr class="proj-highlight"><td>Ano 2</td><td>2.000</td><td>R$1M</td><td>R$12M</td><td style="color:#5de0e6;font-size:12px">Margem bruta &gt;97%</td></tr>
+    </tbody>
+  </table>
+  <div class="grid grid-3" style="margin-top:0.8rem">
+    <div class="cell">
+      <h3>1% de São Paulo</h3>
+      <p>1.900 assinantes. R$11,4M de receita anual. Já calculado com o produto atual.</p>
+    </div>
+    <div class="cell">
+      <h3>1% do Brasil</h3>
+      <p>7.000 assinantes. R$42M de ARR. O produto já está construído para essa escala.</p>
+    </div>
+    <div class="cell">
+      <h3>Múltiplos expressivos</h3>
+      <p>SaaS com margem acima de 90% e mercado endereçável de 700k profissionais atinge valuation elevado em rodadas subsequentes.</p>
+    </div>
+  </div>
+  <p style="margin-top:0.6rem; font-size:13px; opacity:.55">O retorno ao investidor se materializa no crescimento do valor da empresa — com fundamentos que sustentam esse crescimento de forma consistente e previsível. O equity está em aberto. O tamanho da oportunidade, não.</p>
+</section>
+
+<!-- SLIDE 13 — GO-TO-MARKET -->
+<section class="slide" id="s13">
+  <div class="slide-number">13 — Go-to-Market</div>
+  <h2>Entrada local. <span class="grad">Escala nacional.</span></h2>
+  <div class="divider"></div>
+  <div class="phase-row">
+    <div class="phase-label">Fase 1<br>Meses 1–2<br>Santos e Baixada</div>
+    <div>
+      <div class="phase-title">Laboratório e validação</div>
+      <p class="phase-body">Prospecção direta e network, onboarding próximo, primeiros 100 clientes pagantes, coleta de cases reais e NPS. Meta: R$50k MRR em 60 dias. CAC próximo de zero — aquisição por relacionamento, sem tráfego pago.</p>
+    </div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-label">Fase 2<br>Meses 3–6<br>Expansão regional</div>
+    <div>
+      <div class="phase-title">Crescimento por referral estruturado</div>
+      <p class="phase-body">Programa de indicação estruturado com os primeiros clientes como canal primário de aquisição. Um corretor satisfeito dentro de uma imobiliária é o melhor vendedor da FlyImob para os outros nove da equipe. A expansão acontece antes de qualquer investimento relevante em marketing pago.</p>
+    </div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-label">Fase 3<br>A partir do mês 6<br>São Paulo</div>
+    <div>
+      <div class="phase-title">Estrutura comercial dedicada</div>
+      <p class="phase-body">SDR dedicado e gerente comercial a partir de 300 clientes, financiados pelo próprio MRR. Com 190 mil corretores ativos e 28 mil imobiliárias, capturar 1% do mercado representa 1.900 assinantes e R$950k de MRR. Nada impede de chegarmos a todos os corretores do Brasil.</p>
+    </div>
+  </div>
+  <p style="margin-top:0.6rem; font-size:13.5px; opacity:.6">O canal de distribuição mais poderoso é o próprio produto: cada site de corretor publicado pelo ecossistema é uma vitrine orgânica da FlyImob no mercado.</p>
+</section>
+
+<!-- SLIDE 14 — POR QUE AGORA -->
+<section class="slide" id="s14">
+  <div class="slide-number">14 — Por Que Agora</div>
+  <h2>A janela está aberta. <span class="grad">Por pouco tempo.</span></h2>
+  <div class="divider"></div>
+  <p>O mercado imobiliário brasileiro passa por digitalização acelerada. Corretores mais jovens exigem ferramentas melhores. Imobiliárias precisam de governança que planilha não entrega. Nenhum player construiu ainda um ecossistema com a profundidade e integração que a FlyImob entrega.</p>
+  <div class="grid grid-3" style="margin-top:0.8rem">
+    <div class="cell">
+      <h3>Proptech crescendo +20%/ano</h3>
+      <p>O mercado está se movendo — mas o ecossistema completo ainda não chegou.</p>
+    </div>
+    <div class="cell">
+      <h3>Penetração tecnológica marginal</h3>
+      <p>O corretor médio ainda usa WhatsApp como único sistema de gestão.</p>
+    </div>
+    <div class="cell">
+      <h3>Fosso difícil de replicar</h3>
+      <p>Ecossistemas integrados não se copiam em seis meses — e quando o mercado perceber o tamanho da oportunidade, a FlyImob já estará consolidada.</p>
+    </div>
+  </div>
+  <div class="quote" style="margin-top:1rem">Quem posicionar a marca agora como referência de ecossistema para o corretor de alta performance vai construir um fosso competitivo que só cresce com o tempo.</div>
+</section>
+
+<!-- SLIDE 15 — TIME -->
+<section class="slide" id="s15">
+  <div class="slide-number">15 — Time</div>
+  <h2>Construído por quem <span class="grad">entende o problema por dentro</span>.</h2>
+  <div class="divider"></div>
+  <p>O produto nasceu da combinação de dois perfis complementares: um time de tecnologia com histórico real em desenvolvimento de software e construção de produtos para negócio — a Fly Tech — e um corretor de imóveis com operação ativa no mercado, que viveu na prática cada uma das dores que a FlyImob resolve.</p>
+  <p>Não é uma solução genérica desenvolvida por quem leu sobre o mercado imobiliário. É um produto construído por quem opera nele.</p>
+  <div class="grid grid-2" style="margin-top:0.8rem">
+    <div class="cell">
+      <h3>Fly Tech</h3>
+      <p>Empresa especializada em desenvolvimento de software, solução de problemas e negócios. Responsável pela arquitetura, produto e tecnologia da FlyImob.</p>
+    </div>
+    <div class="cell">
+      <h3>Parceiro de mercado</h3>
+      <p>Corretor de imóveis com operação ativa. A inteligência de mercado que transformou dor real em produto funcional.</p>
+    </div>
+  </div>
+  <p style="margin-top:0.6rem; font-size:13px; opacity:.5">O time está sendo expandido progressivamente conforme a operação cresce — com contratações técnicas e comerciais planejadas para as fases 2 e 3 do Go-to-Market. Nomes e credenciais completas disponíveis sob solicitação.</p>
+</section>
+
+<!-- SLIDE 16 — O QUE BUSCAMOS -->
+<section class="slide" id="s16">
+  <div class="slide-number">16 — O Que Buscamos</div>
+  <h2>Capital não é o único recurso <span class="grad">escasso nesse momento</span>.</h2>
+  <div class="divider"></div>
+  <p>Buscamos um parceiro estratégico que traga, além do capital, quatro ativos que aceleram de forma não-linear:</p>
+  <div class="want-grid">
+    <div class="want">
+      <h3>Network</h3>
+      <p>Acesso a imobiliárias, corretores de influência e players do mercado imobiliário que encurtam meses de prospecção fria.</p>
+    </div>
+    <div class="want">
+      <h3>Estrutura</h3>
+      <p>Suporte operacional, jurídico e de gestão que permite aos fundadores focarem em produto e crescimento, não em overhead administrativo.</p>
+    </div>
+    <div class="want">
+      <h3>Marketing</h3>
+      <p>Capacidade de posicionamento de marca, produção de conteúdo e presença digital que o time interno ainda não tem escala para executar sozinho.</p>
+    </div>
+    <div class="want">
+      <h3>Apoio estratégico</h3>
+      <p>Experiência de quem já escalou negócios SaaS e pode antecipar os erros que só aparecem depois de 500 clientes.</p>
+    </div>
+  </div>
+  <div class="quote" style="margin-top:1rem">O equity está em aberto para a conversa certa. O que não está em discussão é o tamanho da oportunidade.</div>
+</section>
+
+<!-- SLIDE 17 — ENCERRAMENTO -->
+<section class="cta-slide" id="s17">
+  <div class="slide-number" style="text-align:center">17 — Encerramento</div>
+  <h1 style="font-size:clamp(2rem,6vw,4.5rem); text-align:center; line-height:1.1; margin-bottom:1.5rem">
+    <span class="grad">Para ter tudo que a FlyImob entrega,</span><br>
+    um corretor precisaria assinar<br>
+    <span class="grad-rev">8 sistemas diferentes.</span>
+  </h1>
+  <p style="max-width:50ch; font-size:1rem; opacity:.65">Gastar muito mais e ainda assim operar com menos inteligência.</p>
+  <div class="sep" style="max-width:120px; margin:1rem auto"></div>
+  <p style="max-width:50ch; font-size:1.1rem; opacity:.9; font-family:'Montserrat',sans-serif; font-weight:600; text-align:center">A FlyImob é um ecossistema. E ecossistemas, quando bem construídos, não têm substituto.</p>
+  <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:3rem">
+    <a href="#" class="cta-btn">Demo do produto</a>
+    <a href="#" class="cta-btn">Acesso à plataforma</a>
+    <a href="#" class="cta-btn">Reunião de aprofundamento</a>
+  </div>
+</section>
+
+</div><!-- #track -->
+</div><!-- #deck -->
+
+<script>
+  const slides = Array.from(document.querySelectorAll('[id^="s"]'));
+  const nav = document.getElementById('nav');
+  const track = document.getElementById('track');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  let current = 0;
+
+  // Build nav dots
+  slides.forEach((s, i) => {
+    const a = document.createElement('a');
+    a.href = '#';
+    a.title = 'Slide ' + (i + 1);
+    a.addEventListener('click', e => { e.preventDefault(); goTo(i); });
+    nav.appendChild(a);
+  });
+
+  const dots = nav.querySelectorAll('a');
+
+  function goTo(n) {
+    current = Math.max(0, Math.min(n, slides.length - 1));
+    track.style.transform = 'translateX(-' + (current * 100) + 'vw)';
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    btnPrev.classList.toggle('hidden', current === 0);
+    btnNext.classList.toggle('hidden', current === slides.length - 1);
+  }
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
+  });
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) goTo(dx < 0 ? current + 1 : current - 1);
+  }, { passive: true });
+
+  goTo(0);
+</script>
+</body>
+</html>
